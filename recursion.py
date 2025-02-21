@@ -17,7 +17,6 @@ UT EID 2:
 """
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def group_sum(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to the
@@ -34,7 +33,6 @@ def group_sum(start, nums, target):
         return group_sum(start+1, nums, target-nums[start]) or group_sum(start+1, nums, target)
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def group_sum_6(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to the
@@ -52,10 +50,11 @@ def group_sum_6(start, nums, target):
         if nums[start]==6:
             return group_sum_6(start+1, nums, target-nums[start])
         else:
-            return group_sum_6(start+1, nums, target-nums[start]) or group_sum_6(start+1, nums, target)
+            attempt1 = group_sum_6(start+1, nums, target-nums[start])
+            attempt2 = group_sum_6(start+1, nums, target)
+            return attempt1 or attempt2
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def group_no_adj(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to
@@ -70,11 +69,12 @@ def group_no_adj(start, nums, target):
     if start>=len(nums):
         return False
     else:
-        return group_no_adj(start+2, nums, target-nums[start]) or group_no_adj(start+1, nums, target)
+        attempt1 = group_no_adj(start+2, nums, target-nums[start])
+        attempt2 = group_no_adj(start+1, nums, target)
+        return attempt1 or attempt2
 
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def group_sum_5(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to
@@ -86,7 +86,6 @@ def group_sum_5(start, nums, target):
     """
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def group_sum_clump(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to
@@ -100,7 +99,6 @@ def group_sum_clump(start, nums, target):
     """
 
 
-# TODO: Modify this function
 def split_array(nums):
     """
     Given a list of ints, determine if the numbers can be split evenly into two groups
@@ -110,6 +108,24 @@ def split_array(nums):
     pre: len(nums) >= 0, nums will only contain ints
     post: return True if nums can be split, False otherwise
     """
+    return split_array_helper(nums)
+
+
+
+def split_array_helper(nums, sum_1=0, sum_2=0):
+    """
+    split array helper, returns true if nums can be evenly split into two equal sums,
+    false otherwise
+    """
+    if len(nums)==0 and sum_1==sum_2:
+        return True
+    elif len(nums)==0:
+        return False
+    else:
+        add = nums.pop()
+        attempt1 = split_array_helper(nums.copy(),sum_1+add,sum_2)
+        attempt2 = split_array_helper(nums.copy(),sum_1,sum_2+add)
+        return attempt1 or attempt2
 
 
 # TODO: Modify this function. You may delete this comment when you are done.
