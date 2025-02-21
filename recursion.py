@@ -26,6 +26,12 @@ def group_sum(start, nums, target):
     pre: start >= 0, len(nums) >= 0, target >= 0, nums will only contain ints
     post: return True if nums has a group of ints that sum to target, False otherwise
     """
+    if target==0:
+        return True
+    if start>=len(nums):
+        return False
+    else:
+        return group_sum(start+1, nums, target-nums[start]) or group_sum(start+1, nums, target)
 
 
 # TODO: Modify this function. You may delete this comment when you are done.
