@@ -2,7 +2,7 @@
 Student information for this assignment:
 
 Replace <FULL NAME> with your name.
-On my/our honor, Aadi Vasa and <FULL NAME>, this
+On my/our honor, Aadi Vasa and Raghuvendra Chowdhry, this
 programming assignment is my own work and I have not provided this code to
 any other student.
 
@@ -13,7 +13,7 @@ code to someone else), the case shall be submitted to the Office of the Dean of
 Students. Academic penalties up to and including an F in the course are likely.
 
 UT EID 1: adv982
-UT EID 2:
+UT EID 2: rbc993
 """
 
 
@@ -84,6 +84,17 @@ def group_sum_5(start, nums, target):
     pre: start >= 0, len(nums) >= 0, target >= 0, nums will only contain ints
     post: return True if nums has a group of ints that sum to target, False otherwise
     """
+    if target==0:
+        return True
+    if start>=len(nums):
+        return False
+    else:
+        if nums[start] % 5 == 0:
+            return group_sum_5(start+1, nums, target-nums[start])
+        else:
+            attempt1 = group_sum_5(start+1, nums, target-nums[start])
+            attempt2 = group_sum_5(start+1, nums, target)
+            return attempt1 or attempt2
 
 
 def group_sum_clump(start, nums, target):
@@ -97,6 +108,24 @@ def group_sum_clump(start, nums, target):
     pre: start >= 0, len(nums) >= 0, target >= 0, nums will only contain ints
     post: return True if nums has a group of ints that sum to target, False otherwise
     """
+    if target==0:
+        return True
+    if start>=len(nums):
+        return False
+    else:
+        clump_len = 1
+        i = start + 1
+        while i < len(nums) and nums[i] == nums[start]:
+            clump_len += 1
+            i += 1
+        if clump_len > 1:
+            attempt1 = group_sum_clump(start+clump_len, nums, target-(nums[start]*clump_len))
+            attempt2 = group_sum_clump(start+clump_len, nums, target)
+            return attempt1 or attempt2
+        else:
+            attempt1 = group_sum_clump(start+1, nums, target-nums[start])
+            attempt2 = group_sum_clump(start+1, nums, target)
+            return attempt1 or attempt2
 
 
 def split_array(nums):
@@ -127,8 +156,6 @@ def split_array_helper(nums, sum_1=0, sum_2=0):
         attempt2 = split_array_helper(nums.copy(),sum_1,sum_2+add)
         return attempt1 or attempt2
 
-
-# TODO: Modify this function. You may delete this comment when you are done.
 def split_odd_10(nums):
     """
     Given a list of ints, determine if the numbers can be split evenly into two groups
@@ -138,9 +165,23 @@ def split_odd_10(nums):
     pre: len(nums) >= 0, nums will only contain ints
     post: return True if nums can be split, False otherwise
     """
+    return split_odd_10_helper(nums)
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
+def split_odd_10_helper(nums, sum_1 = 0, sum_2 = 0):
+    """
+    recursive helper function for above split_odd_10"""
+    if len(nums)==0 and ((sum_1 % 10 == 0 and sum_2 % 2 == 1)
+                         or (sum_2 % 10 == 0 and sum_1 % 2 == 1)):
+        return True
+    elif len(nums)==0:
+        return False
+    else:
+        add = nums.pop()
+        attempt1 = split_odd_10_helper(nums.copy(),sum_1+add,sum_2)
+        attempt2 = split_odd_10_helper(nums.copy(),sum_1,sum_2+add)
+        return attempt1 or attempt2
+
 def split_53(nums):
     """
     Given a list of ints, determine if the numbers can be split evenly into two groups
@@ -152,3 +193,22 @@ def split_53(nums):
     pre: len(nums) >= 0, nums will only contain ints
     post: return True if nums can be split, False otherwise
     """
+    return split_53_helper(nums)
+
+def split_53_helper(nums, sum_1=0, sum_2=0):
+    """
+    recursive helper function for above split_53_helper"""
+    if len(nums)==0 and sum_1==sum_2 and (sum_1 != 0 or sum_2 != 0):
+        return True
+    elif len(nums)==0:
+        return False
+    else:
+        add = nums.pop()
+        if add % 5 == 0:
+            return split_53_helper(nums.copy(),sum_1+add,sum_2)
+        if add % 3 == 0:
+            return split_53_helper(nums.copy(), sum_1, sum_2+add)
+        else:
+            attempt1 = split_53_helper(nums.copy(),sum_1+add,sum_2)
+            attempt2 = split_53_helper(nums.copy(),sum_1,sum_2+add)
+            return attempt1 or attempt2
