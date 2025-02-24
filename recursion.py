@@ -2,7 +2,7 @@
 Student information for this assignment:
 
 Replace <FULL NAME> with your name.
-On my/our honor, Aadi Vasa and Raghuvendra Chowdhry, this
+On mOn my/our honor, Aadi Vasa and Raghuvendra Chowdhry, this
 programming assignment is my own work and I have not provided this code to
 any other student.
 
@@ -195,20 +195,20 @@ def split_53(nums):
     """
     return split_53_helper(nums)
 
-def split_53_helper(nums, sum_1=0, sum_2=0):
+def split_53_helper(nums, sum_1=0, sum_2=0, iterations = 0):
     """
     recursive helper function for above split_53_helper"""
-    if len(nums)==0 and sum_1==sum_2 and (sum_1 != 0 or sum_2 != 0):
+    if len(nums)==0 and sum_1==sum_2 and iterations>0:
         return True
     elif len(nums)==0:
         return False
     else:
         add = nums.pop()
         if add % 5 == 0:
-            return split_53_helper(nums.copy(),sum_1+add,sum_2)
+            return split_53_helper(nums.copy(),sum_1+add,sum_2,iterations+1)
         if add % 3 == 0:
-            return split_53_helper(nums.copy(), sum_1, sum_2+add)
+            return split_53_helper(nums.copy(), sum_1, sum_2+add,iterations+1)
         else:
-            attempt1 = split_53_helper(nums.copy(),sum_1+add,sum_2)
-            attempt2 = split_53_helper(nums.copy(),sum_1,sum_2+add)
+            attempt1 = split_53_helper(nums.copy(),sum_1+add,sum_2,iterations+1)
+            attempt2 = split_53_helper(nums.copy(),sum_1,sum_2+add,iterations+1)
             return attempt1 or attempt2
