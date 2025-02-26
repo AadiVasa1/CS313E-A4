@@ -87,7 +87,7 @@ def group_sum_5(start, nums, target):
     if nums[start] % 5 == 0:
         if (start+1) < len(nums) and  nums[start+1] == 1:
             return group_sum_5(start+2, nums, target-nums[start])
-        return group_sum_5(start+1, nums, target-nums[start]) 
+        return group_sum_5(start+1, nums, target-nums[start])
     attempt1 = group_sum_5(start+1, nums, target-nums[start])
     attempt2 = group_sum_5(start+1, nums, target)
     return attempt1 or attempt2
