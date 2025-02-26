@@ -29,8 +29,7 @@ def group_sum(start, nums, target):
         return True
     if start>=len(nums):
         return False
-    else:
-        return group_sum(start+1, nums, target-nums[start]) or group_sum(start+1, nums, target)
+    return group_sum(start+1, nums, target-nums[start]) or group_sum(start+1, nums, target)
 
 
 def group_sum_6(start, nums, target):
@@ -49,10 +48,9 @@ def group_sum_6(start, nums, target):
     else:
         if nums[start]==6:
             return group_sum_6(start+1, nums, target-nums[start])
-        else:
-            attempt1 = group_sum_6(start+1, nums, target-nums[start])
-            attempt2 = group_sum_6(start+1, nums, target)
-            return attempt1 or attempt2
+        attempt1 = group_sum_6(start+1, nums, target-nums[start])
+        attempt2 = group_sum_6(start+1, nums, target)
+        return attempt1 or attempt2
 
 
 def group_no_adj(start, nums, target):
@@ -68,10 +66,9 @@ def group_no_adj(start, nums, target):
         return True
     if start>=len(nums):
         return False
-    else:
-        attempt1 = group_no_adj(start+2, nums, target-nums[start])
-        attempt2 = group_no_adj(start+1, nums, target)
-        return attempt1 or attempt2
+    attempt1 = group_no_adj(start+2, nums, target-nums[start])
+    attempt2 = group_no_adj(start+1, nums, target)
+    return attempt1 or attempt2
 
 
 
@@ -91,10 +88,9 @@ def group_sum_5(start, nums, target):
     else:
         if nums[start] % 5 == 0:
             return group_sum_5(start+1, nums, target-nums[start])
-        else:
-            attempt1 = group_sum_5(start+1, nums, target-nums[start])
-            attempt2 = group_sum_5(start+1, nums, target)
-            return attempt1 or attempt2
+        attempt1 = group_sum_5(start+1, nums, target-nums[start])
+        attempt2 = group_sum_5(start+1, nums, target)
+        return attempt1 or attempt2
 
 
 def group_sum_clump(start, nums, target):
@@ -122,10 +118,9 @@ def group_sum_clump(start, nums, target):
             attempt1 = group_sum_clump(start+clump_len, nums, target-(nums[start]*clump_len))
             attempt2 = group_sum_clump(start+clump_len, nums, target)
             return attempt1 or attempt2
-        else:
-            attempt1 = group_sum_clump(start+1, nums, target-nums[start])
-            attempt2 = group_sum_clump(start+1, nums, target)
-            return attempt1 or attempt2
+        attempt1 = group_sum_clump(start+1, nums, target-nums[start])
+        attempt2 = group_sum_clump(start+1, nums, target)
+        return attempt1 or attempt2
 
 
 def split_array(nums):
@@ -148,13 +143,12 @@ def split_array_helper(nums, sum_1=0, sum_2=0):
     """
     if len(nums)==0 and sum_1==sum_2:
         return True
-    elif len(nums)==0:
+    if len(nums)==0:
         return False
-    else:
-        add = nums.pop()
-        attempt1 = split_array_helper(nums.copy(),sum_1+add,sum_2)
-        attempt2 = split_array_helper(nums.copy(),sum_1,sum_2+add)
-        return attempt1 or attempt2
+    add = nums.pop()
+    attempt1 = split_array_helper(nums.copy(),sum_1+add,sum_2)
+    attempt2 = split_array_helper(nums.copy(),sum_1,sum_2+add)
+    return attempt1 or attempt2
 
 def split_odd_10(nums):
     """
@@ -174,13 +168,12 @@ def split_odd_10_helper(nums, sum_1 = 0, sum_2 = 0):
     if len(nums)==0 and ((sum_1 % 10 == 0 and sum_2 % 2 == 1)
                          or (sum_2 % 10 == 0 and sum_1 % 2 == 1)):
         return True
-    elif len(nums)==0:
+    if len(nums)==0:
         return False
-    else:
-        add = nums.pop()
-        attempt1 = split_odd_10_helper(nums.copy(),sum_1+add,sum_2)
-        attempt2 = split_odd_10_helper(nums.copy(),sum_1,sum_2+add)
-        return attempt1 or attempt2
+    add = nums.pop()
+    attempt1 = split_odd_10_helper(nums.copy(),sum_1+add,sum_2)
+    attempt2 = split_odd_10_helper(nums.copy(),sum_1,sum_2+add)
+    return attempt1 or attempt2
 
 def split_53(nums):
     """
@@ -208,7 +201,6 @@ def split_53_helper(nums, sum_1=0, sum_2=0, iterations = 0):
             return split_53_helper(nums.copy(),sum_1+add,sum_2,iterations+1)
         if add % 3 == 0:
             return split_53_helper(nums.copy(), sum_1, sum_2+add,iterations+1)
-        else:
-            attempt1 = split_53_helper(nums.copy(),sum_1+add,sum_2,iterations+1)
-            attempt2 = split_53_helper(nums.copy(),sum_1,sum_2+add,iterations+1)
-            return attempt1 or attempt2
+        attempt1 = split_53_helper(nums.copy(),sum_1+add,sum_2,iterations+1)
+        attempt2 = split_53_helper(nums.copy(),sum_1,sum_2+add,iterations+1)
+        return attempt1 or attempt2
