@@ -537,7 +537,7 @@ class TestSplit53(unittest.TestCase):
         """split_53(): Empty list, unable to split"""
         nums = []
         actual = split_53(nums)
-        expected = False
+        expected = True
         self.assertEqual(actual, expected)
 
 

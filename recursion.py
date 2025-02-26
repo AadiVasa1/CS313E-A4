@@ -198,7 +198,7 @@ def split_53(nums):
 def split_53_helper(nums, sum_1=0, sum_2=0, iterations = 0):
     """
     recursive helper function for above split_53_helper"""
-    if len(nums)==0 and sum_1==sum_2 and iterations>0:
+    if len(nums)==0 and sum_1==sum_2:
         return True
     elif len(nums)==0:
         return False
